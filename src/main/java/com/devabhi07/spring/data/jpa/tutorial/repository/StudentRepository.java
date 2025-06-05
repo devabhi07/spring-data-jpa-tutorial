@@ -1,8 +1,11 @@
 package com.devabhi07.spring.data.jpa.tutorial.repository;
 
 import com.devabhi07.spring.data.jpa.tutorial.entity.Student;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,5 +29,31 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     //native query
     @Query(value = "select * from tbl_student s where s.email_address = ?1", nativeQuery = true)
     Student getStudentByEmailAddressNative(String emailId);
+
+    //native query Param
+    @Query(value = "select * from tbl_student s where s.email_address = :emailId", nativeQuery = true )
+    Student getStudentByEmailAddressNativeNameParam(
+            @Param("emailId") String emailId);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "update tbl_student set first_name = ?1 where email_address = ?2", nativeQuery = true)
+    int updateStudentNameByEmailId(String firstName, String emailId);
+//    @Query(value = "select first_name from tbl_student where email_address = ?1", nativeQuery = true)
+//    String findFirstNameByEmailId(String emailId);
+//    @Modifying
+//    @Transactional
+//    @Query(value = "update tbl_student set first_name = ?1 where email_address = ?2", nativeQuery = true)
+//    int updateStudentNameByEmailId(String firstName, String emailId);
+//    default String updateStudentName(String firstName, String emailId) {
+//        String currentFirstName = findFirstNameByEmailId(emailId);
+//        if (currentFirstName != null && currentFirstName.equals(firstName)) {
+//            return "First name already present";
+//        } else {
+//            updateStudentNameByEmailId(firstName, emailId);
+//            return "First name updated successfully";
+//        }
+//    }
 
 }
