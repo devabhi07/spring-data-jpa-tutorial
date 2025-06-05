@@ -56,4 +56,31 @@ class StudentRepositoryTest {
         System.out.println("studentList ="+ studentList);
     }
 
+//    @Test
+//    public void printByFirstName(){
+//        List<Student> student=studentRepository.findByFirstName("will");
+//        System.out.println("Student First Name"+ student);
+//    }
+//    @Test
+//    public void printByFirstNameContaining(){
+//        List<Student> students=studentRepository.findByFirstNameContaining("will");
+//        System.out.println("Student First Name"+ students);
+//    }
+    @Test
+    public void printgetStudentByEmailAddress(){
+        Student student=studentRepository.getStudentByEmailAddress("will@gmail.com");
+        System.out.println("Email ="+ student);
+    }
+    @Test
+    public void printgetStudentByEmailAddresss1(){
+        String student = studentRepository.getStudentFirstNameByEmailAddress("will@gmail.com");
+        System.out.println("Name ="+ student );
+    }
+
+    @Test
+    public void printgetStudentByEmailAddressNative(){
+        Student student = studentRepository.getStudentByEmailAddressNative("will@gmail.com");
+        System.out.println("Name ="+student);
+    }
+
 }
